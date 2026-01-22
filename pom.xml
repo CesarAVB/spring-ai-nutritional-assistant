@@ -59,6 +59,34 @@
             <version>1.7.1-beta14</version>
         </dependency>
         
+        <!-- LangChain4j Core -->
+	    <dependency>
+	        <groupId>dev.langchain4j</groupId>
+	        <artifactId>langchain4j</artifactId>
+	        <version>1.10.0</version>
+	    </dependency>
+	
+	    <!-- Gemini -->
+	    <dependency>
+	        <groupId>dev.langchain4j</groupId>
+	        <artifactId>langchain4j-google-ai-gemini</artifactId>
+	        <version>1.10.0</version>
+	    </dependency>
+	
+	    <!-- OpenAI -->
+	    <dependency>
+	        <groupId>dev.langchain4j</groupId>
+	        <artifactId>langchain4j-open-ai</artifactId>
+	        <version>1.10.0</version>
+	    </dependency>
+	
+	    <!-- Anthropic -->
+	    <dependency>
+	        <groupId>dev.langchain4j</groupId>
+	        <artifactId>langchain4j-anthropic</artifactId>
+	        <version>1.10.0</version>
+	    </dependency>
+        
         <!-- MAPSTRUCT - Biblioteca para mapeamento automático entre objetos Java -->
         <dependency>
             <groupId>org.mapstruct</groupId>
