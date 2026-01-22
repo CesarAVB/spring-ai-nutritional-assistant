@@ -2,6 +2,7 @@ package br.com.sistema.nutritional.llm;
 
 import dev.langchain4j.data.message.UserMessage;
 import dev.langchain4j.model.anthropic.AnthropicChatModel;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.chat.request.ChatRequest;
 import dev.langchain4j.model.chat.response.ChatResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,6 @@ public class AnthropicProvider implements LLMProvider {
     
     private AnthropicChatModel model;
     
-    // ====================================
-    // Inicializa modelo Anthropic (lazy)
-    // ====================================
     private AnthropicChatModel getModel() {
         if (model == null) {
             log.info("🟣 Inicializando Anthropic: {}", modelName);
@@ -35,9 +33,6 @@ public class AnthropicProvider implements LLMProvider {
         return model;
     }
     
-    // ====================================
-    // Envia mensagem para Anthropic
-    // ====================================
     @Override
     public String chat(String systemPrompt, String userMessage) {
         try {
@@ -69,5 +64,10 @@ public class AnthropicProvider implements LLMProvider {
     @Override
     public boolean isAvailable() {
         return apiKey != null && !apiKey.isEmpty();
+    }
+    
+    @Override
+    public ChatModel getChatModel() {
+        return getModel();
     }
 }

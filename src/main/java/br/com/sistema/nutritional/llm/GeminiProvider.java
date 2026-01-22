@@ -1,6 +1,7 @@
 package br.com.sistema.nutritional.llm;
 
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.chat.request.ChatRequest;
 import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.googleai.GoogleAiGeminiChatModel;
@@ -15,14 +16,11 @@ public class GeminiProvider implements LLMProvider {
     @Value("${llm.gemini.api-key:}")
     private String apiKey;
     
-    @Value("${llm.gemini.model-name:gemini-1.5-flash}")
+    @Value("${llm.gemini.model-name:gemini-2.5-flash}")
     private String modelName;
     
     private GoogleAiGeminiChatModel model;
     
-    // ====================================
-    // Inicializa modelo Gemini (lazy)
-    // ====================================
     private GoogleAiGeminiChatModel getModel() {
         if (model == null) {
             log.info("🔷 Inicializando Gemini: {}", modelName);
@@ -35,9 +33,6 @@ public class GeminiProvider implements LLMProvider {
         return model;
     }
     
-    // ====================================
-    // Envia mensagem para Gemini
-    // ====================================
     @Override
     public String chat(String systemPrompt, String userMessage) {
         try {
@@ -69,5 +64,10 @@ public class GeminiProvider implements LLMProvider {
     @Override
     public boolean isAvailable() {
         return apiKey != null && !apiKey.isEmpty();
+    }
+    
+    @Override
+    public ChatModel getChatModel() {
+        return getModel();
     }
 }

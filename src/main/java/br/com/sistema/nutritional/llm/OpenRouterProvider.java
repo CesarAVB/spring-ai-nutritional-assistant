@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import dev.langchain4j.model.chat.ChatModel;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -29,9 +30,6 @@ public class OpenRouterProvider implements LLMProvider {
     
     private final RestTemplate restTemplate = new RestTemplate();
     
-    // ====================================
-    // Envia mensagem para OpenRouter
-    // ====================================
     @Override
     public String chat(String systemPrompt, String userMessage) {
         try {
@@ -90,5 +88,11 @@ public class OpenRouterProvider implements LLMProvider {
     @Override
     public boolean isAvailable() {
         return apiKey != null && !apiKey.isEmpty();
+    }
+    
+    @Override
+    public ChatModel getChatModel() {
+        log.warn("⚠️ OpenRouterProvider não suporta ChatModel nativamente");
+        return null;
     }
 }

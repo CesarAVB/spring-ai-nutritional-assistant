@@ -1,6 +1,7 @@
 package br.com.sistema.nutritional.llm;
 
 import dev.langchain4j.data.message.UserMessage;
+import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.chat.request.ChatRequest;
 import dev.langchain4j.model.chat.response.ChatResponse;
 import dev.langchain4j.model.openai.OpenAiChatModel;
@@ -20,9 +21,6 @@ public class OpenAIProvider implements LLMProvider {
     
     private OpenAiChatModel model;
     
-    // ====================================
-    // Inicializa modelo OpenAI (lazy)
-    // ====================================
     private OpenAiChatModel getModel() {
         if (model == null) {
             log.info("🟢 Inicializando OpenAI: {}", modelName);
@@ -35,9 +33,6 @@ public class OpenAIProvider implements LLMProvider {
         return model;
     }
     
-    // ====================================
-    // Envia mensagem para OpenAI
-    // ====================================
     @Override
     public String chat(String systemPrompt, String userMessage) {
         try {
@@ -69,5 +64,10 @@ public class OpenAIProvider implements LLMProvider {
     @Override
     public boolean isAvailable() {
         return apiKey != null && !apiKey.isEmpty();
+    }
+    
+    @Override
+    public ChatModel getChatModel() {
+        return getModel();
     }
 }
